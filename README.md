@@ -20,7 +20,7 @@ import pyperclip #copy some js code
 Simply run:
 
 ```python
-CookieClicker.run()
+CookieClicker().run()
 ```
 
 The webbrowser will open up and the cookie clicker will be ready to start clicking. Here's how it
