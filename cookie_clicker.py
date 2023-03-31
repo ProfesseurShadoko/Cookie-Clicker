@@ -50,7 +50,7 @@ class CookieClicker:
         - prints out statistics once the loop is over
         """
         print(msg)
-        js_auto_click = "setInterval(() => document.getElementById('bigCookie').click(), 1);setInterval( () => document.getElementById('shimmers').firstElementChild.click(), 10);"
+        js_auto_click = "setInterval(() => document.getElementById('bigCookie').click(), 1);setInterval(() => document.getElementById('shimmers').firstElementChild.click(), 10);"
         pyperclip.copy(js_auto_click)
         
         webbrowser.open("https://orteil.dashnet.org/cookieclicker/")
@@ -61,12 +61,8 @@ class CookieClicker:
             print("\nEXIT-GAME\n")
         except KeyboardInterrupt:
             print("^C")
-            
-        print("Game statistics:")
-        print(f"\t- {self.count} clicks")
-        print(f"\t- {self.frequency():.2f} Hz")
-        time.sleep(1)
     
+    #CLICK
     """run a click at self.position (and updates click_count)
     """
     def click(self):
@@ -85,6 +81,7 @@ class CookieClicker:
         keyboard.read_event()
         time.sleep(1)
     
+    #PAUSE/QUIT
     """pauses/unpauses the game & set_position if necessary"""
     def pause(self):
         if self.position == None:
@@ -102,8 +99,11 @@ class CookieClicker:
     
     """raise an exception caught by the run function to exit the main loop"""
     def quit(self):
+        if not self.paused:
+            self.pause()
         raise(ExitGameExcetion())
     
+    #STATS
     """returns the frequency of the click """
     def frequency(self) -> float:
         return self.count / self.time if self.time !=0 else 0
@@ -119,7 +119,7 @@ class CookieClicker:
         self.time += stop - self.session_start
         print(f"PAUSE after {stop-self.session_start:.2f}s - ({self.count} clicks overall - f={self.frequency():.2f} Hz)")
     
-       
+    #MAIN LOOP  
     def loop(self):
         while True:
             if keyboard.is_pressed("space"):
@@ -127,15 +127,11 @@ class CookieClicker:
                     self.quit()
                 if keyboard.is_pressed("shift"):
                     self.reset_position()
-                    continue #don't pause !
+                    continue #don't unpause!
                 self.pause()
             else:
                 if not self.paused:
                     self.click()
-        
-    
-if __name__=="__main__":
-    CookieClicker().run()
     
             
     
