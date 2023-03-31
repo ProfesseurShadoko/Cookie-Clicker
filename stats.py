@@ -24,3 +24,11 @@ def show_cc_stats(cc:CookieClicker):
     print(f"\t- {cc.count} clicks")
     print(f"\t- {int(cc.time)}s")
     print(f"\t- {cc.frequency():.0f}Hz")
+
+def reset_stats():
+    with open("stats.json","w") as file:
+        data = {
+            "time":0,
+            "clicks":0
+        }
+        json.dump(data,file,indent=4)

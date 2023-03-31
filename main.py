@@ -1,5 +1,5 @@
 from cookie_clicker import CookieClicker
-from stats import update_stats,show_cc_stats,show_stats
+from stats import update_stats,show_cc_stats,show_stats,reset_stats
 
 
 
